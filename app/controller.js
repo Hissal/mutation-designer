@@ -49,16 +49,9 @@ function refreshDerived(){
 }
 function sizeEditor(){
   const panel=document.querySelector('.adjustable-editor'),library=document.querySelector('.library-section');if(!panel||!library)return;
-  panel.classList.toggle('auto-fit-preview',state.preferences.autoFitPreview);
   if(innerWidth<=800){panel.style.height='';return;}
   const baseHeight=Math.max(760,library.offsetHeight,innerHeight-180);panel.style.height=`${baseHeight}px`;
-  if(state.preferences.autoFitPreview){const preview=panel.querySelector('.preview-region');const required=panel.querySelector('.panel-head').getBoundingClientRect().height+preview.scrollHeight+220+28+2;panel.style.height=`${Math.max(baseHeight,Math.ceil(required))}px`;}
-}
-function setEditorShare(value){
-  const p=state.preferences;p.autoFitPreview=false;p.editorShare=Math.max(25,Math.min(80,Math.round(value)));
-  const panel=document.querySelector('.adjustable-editor'),divider=document.querySelector('.editor-divider');if(!panel)return;
-  panel.style.setProperty('--editor-share',`${p.editorShare}fr`);panel.style.setProperty('--preview-share',`${100-p.editorShare}fr`);
-  divider.setAttribute('aria-valuenow',p.editorShare);const button=panel.querySelector('[data-action="auto-fit-preview"]');button.classList.remove('active');button.setAttribute('aria-pressed','false');sizeEditor();
+  {const preview=panel.querySelector('.preview-region');const required=panel.querySelector('.panel-head').getBoundingClientRect().height+preview.scrollHeight+220+2;panel.style.height=`${Math.max(baseHeight,Math.ceil(required))}px`;}
 }
 function selectMutation(id){state.selected=id;state.view='workspace';render();}
 function cleanSelection(){
@@ -118,7 +111,6 @@ async function action(button){
     case 'archive':current().workflow=current().workflow==='Archived'?'Idea':'Archived';changed();render(true);announce(current().workflow==='Archived'?'Mutation archived. Use the workflow filter to find it later.':'Mutation restored as an idea.');break;
     case 'delete':deleteDialog();break;
     case 'remove-image':current().image='';current().visual='icon';changed();render(true);break;
-    case 'auto-fit-preview':state.preferences.autoFitPreview=!state.preferences.autoFitPreview;persist();refreshDerived();break;
     case 'clear-filters':state.filters={search:'',tag:'',workflow:'active'};render(true);break;
     case 'select-visible':pool().forEach(m=>state.bulk.add(m.id));render(true);break;
     case 'clear-selection':state.bulk.clear();render(true);break;
@@ -177,16 +169,6 @@ dialog.addEventListener('click',event=>{
   }catch(error){announce(error.message);}
 });
 dialog.addEventListener('close',()=>{importPlan=null;importDecisions={};});
-app.addEventListener('pointerdown',event=>{
-  const divider=event.target.closest('.editor-divider');if(!divider)return;event.preventDefault();divider.focus();divider.setPointerCapture(event.pointerId);
-  const panel=divider.closest('.adjustable-editor'),editor=panel.querySelector('.panel-body'),preview=panel.querySelector('.preview-region');
-  const startY=event.clientY,startHeight=editor.getBoundingClientRect().height,available=startHeight+preview.getBoundingClientRect().height;
-  const move=e=>setEditorShare((startHeight+e.clientY-startY)/available*100);
-  const end=()=>{divider.removeEventListener('pointermove',move);divider.removeEventListener('pointerup',end);divider.removeEventListener('pointercancel',end);persist();};
-  divider.addEventListener('pointermove',move);divider.addEventListener('pointerup',end);divider.addEventListener('pointercancel',end);
-});
-app.addEventListener('dblclick',event=>{if(event.target.closest('.editor-divider')){setEditorShare(62);persist();}});
-app.addEventListener('keydown',event=>{if(event.target.matches('.editor-divider')&&['ArrowUp','ArrowDown','Home','End'].includes(event.key)){event.preventDefault();setEditorShare(event.key==='Home'?25:event.key==='End'?80:state.preferences.editorShare+(event.key==='ArrowDown'?5:-5));persist();}});
 window.addEventListener('resize',sizeEditor);
 window.addEventListener('beforeunload',event=>{if(queue?.isDirty()){event.preventDefault();event.returnValue='';}});
 

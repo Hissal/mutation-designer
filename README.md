@@ -24,7 +24,7 @@ The app starts empty. Create a mutation, import a JSON file, or explicitly load 
 - Cards are the default library view. Switch to a list and choose small, medium, or large entries.
 - Use any of 12 built-in anatomy icons or upload one PNG/JPEG/WebP/GIF up to 5 MB. Switching to an icon keeps the upload available.
 - State previews and comparison offers have independent side-by-side / stacked controls.
-- Auto-fit keeps full preview content visible. Drag the divider to use manual sizing; keyboard Up/Down and Home/End also work. Double-click resets the manual balance. Very long previews grow the panel; mobile uses natural page height.
+- The editor and preview always size automatically, separated by a slim line. Full preview content stays visible. Very long previews grow the panel; mobile uses natural page height.
 - The comparison lab has three slots with state selectors and locks. Reroll mutations only, or mutations and states. Current search/tag/workflow filters determine the pool. Archived ideas are excluded by default; locks survive filtering. Small pools leave unfillable slots empty.
 
 ## Save, back up, and exchange files

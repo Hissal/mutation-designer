@@ -663,23 +663,10 @@ small{font-size:12px}
   padding-top:15px}
 .image-controls{flex-wrap:wrap}
 
-.editor-divider{display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  background:var(--raised);
-  border-block:1px solid var(--line);
-  cursor:row-resize;
-  touch-action:none;
-  user-select:none;
-  color:var(--muted);
-  min-height:28px}
-.editor-divider>span{height:3px;
-  width:24px;
-  border-block:1px solid var(--muted)}
-.editor-divider small{font:10px var(--mono)}
-.editor-divider:hover,.editor-divider:focus-visible{color:var(--acid);
-  background:#c0ee6c10}
+
+
+
+
 
 @media(min-width:801px){
  .library-section{align-self:start;
@@ -692,7 +679,7 @@ small{font-size:12px}
 
  .variant-a .workspace-a>.adjustable-editor{position:static;
   display:grid;
-  grid-template-rows:auto minmax(0,var(--editor-share)) 28px minmax(0,var(--preview-share));
+  grid-template-rows:auto minmax(220px,1fr) max-content;
   min-width:0}
 
  .variant-a .workspace-a>.adjustable-editor>.panel-body{max-height:none;
@@ -707,7 +694,7 @@ small{font-size:12px}
 
 }
 
-@media(max-width:800px){.editor-divider{display:none}
+@media(max-width:800px){
 .variant-a .workspace-a>.adjustable-editor{height:auto!important}
 .variant-a .workspace-a>.adjustable-editor>.panel-body{max-height:none}
 .library-controls{justify-content:flex-start}
@@ -726,9 +713,9 @@ small{font-size:12px}
 /* Auto-fit reserves the complete preview's natural height;
    long copy grows the panel. */
 @media(min-width:801px){
- .variant-a .workspace-a>.adjustable-editor.auto-fit-preview{grid-template-rows:auto minmax(220px,1fr) 28px max-content}
+ .variant-a .workspace-a>.adjustable-editor{grid-template-rows:auto minmax(220px,1fr) max-content}
 
- .variant-a .adjustable-editor.auto-fit-preview>.preview-region{overflow:visible}
+ .variant-a .adjustable-editor>.preview-region{overflow:visible}
 
  .comparison-grid.layout-stacked{gap:10px}
 

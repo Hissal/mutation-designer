@@ -2,7 +2,7 @@ export const STATES = ['Stable','Unstable','Corrupt'];
 export const WORKFLOWS = ['Idea','Developing','Ready','Archived'];
 export const ICON_NAMES = {bones:'Bones',heart:'Heart',lungs:'Lungs',eye:'Eye',spine:'Spine',teeth:'Teeth',brain:'Brain',skull:'Skull',hand:'Hand',stomach:'Stomach',muscle:'Muscle',skin:'Skin'};
 export const TEXT_FIELDS=['name','body','positiveTitle','positive','negativeTitle','negative','notes'];
-export const DEFAULT_PREFERENCES={libraryView:'cards',entrySize:'large',previewLayout:'columns',rollerLayout:'columns',editorShare:62,autoFitPreview:true};
+export const DEFAULT_PREFERENCES={libraryView:'cards',entrySize:'large',previewLayout:'columns',rollerLayout:'columns'};
 export function title(m){return m?.name.trim() || 'Untitled mutation';}
 export function createMutation(overrides={}){
   const now=new Date().toISOString();
@@ -78,7 +78,5 @@ export function rerollSlots(slots,pool,mode,random=Math.random){
 export function cleanPreferences(value={}){
   const p={...DEFAULT_PREFERENCES};
   for(const [key,allowed] of Object.entries({libraryView:['cards','list'],entrySize:['small','medium','large'],previewLayout:['columns','stacked'],rollerLayout:['columns','stacked']}))if(allowed.includes(value[key]))p[key]=value[key];
-  if(Number.isFinite(value.editorShare))p.editorShare=Math.max(25,Math.min(80,value.editorShare));
-  if(typeof value.autoFitPreview==='boolean')p.autoFitPreview=value.autoFitPreview;
   return p;
 }

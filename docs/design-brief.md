@@ -18,7 +18,7 @@ Cards are the library default; provide a denser list with both effects, and smal
 
 Show the selected definition in all three states, with side-by-side and stacked choices. Comparison offers have an independent layout choice. Stacked offers are slim horizontal rows on desktop: artwork left, effects center, controls right. Long descriptions wrap without truncation.
 
-Auto-fit reserves the natural height of the full preview and gives the editor remaining space. Long content grows the overall panel. Dragging switches to manual sizing; a visible button restores auto-fit. The divider is also keyboard-operable. Mobile uses natural content height.
+Sizing is always automatic: reserve the natural height of the full preview and give the editor remaining space. Long content grows the overall panel. A slim static line separates the sections. There is no manual resizing or auto-fit toggle; obsolete saved resize preferences are ignored. Mobile uses natural content height.
 
 Offer 12 locally authored anatomy outlines: bones, heart, lungs, eye, spine, teeth, brain, skull, hand, stomach, muscle, skin. Switching to an icon retains the uploaded image for later reuse. Chosen visuals appear in library entries, state previews, and comparison offers.
 
