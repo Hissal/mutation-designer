@@ -4,6 +4,8 @@ A local browser app for designing mutations for a body-horror roguelike FPS. Dev
 
 ## Use on GitHub Pages
 
+Open [Mutation Designer](https://hissal.github.io/mutation-designer/) in your browser. Source: [Hissal/mutation-designer](https://github.com/Hissal/mutation-designer).
+
 The app can be hosted on GitHub Pages. Visitors open the site in their browser without downloading the app or installing Node.js. Definitions and images stay in that browser's local storage; hosting does not introduce shared saving or upload definitions to the repository.
 
 To publish:
@@ -15,7 +17,7 @@ To publish:
 
 The Pages library and local launcher's library are separate. Use JSON export/import to transfer definitions between them. Each teammate also has their own browser library.
 
-For a local copy, clone the repository (GitHub Desktop works too), then double-click `launch-mutation-designer.cmd`. Pull updates to refresh the app files. Saved definitions live outside the repository and are not part of Git commits.
+For a local copy, run `git clone https://github.com/Hissal/mutation-designer.git` (GitHub Desktop works too), then double-click `launch-mutation-designer.cmd`. Pull updates to refresh the app files. Saved definitions live outside the repository and are not part of Git commits.
 
 `npm run build:pages` prepares the static site in `pages-site/`. The Node.js server and Windows launcher are needed only for local use.
 
@@ -120,4 +122,4 @@ Prototype tabs on port 4173 contain temporary session data. Their edits cannot a
 - Retrieved: 2026-09-25
 - License: `.agents/skills/LICENSE.mattpocock` (MIT)
 
-Git is local; no hosted repository or remote is configured.
+Public repository: https://github.com/Hissal/mutation-designer. The `origin` remote points to this repository.
