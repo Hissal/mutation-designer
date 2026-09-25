@@ -4,7 +4,7 @@ A local browser app for designing mutations for a body-horror roguelike FPS. Dev
 
 ## Launch on Windows
 
-Install Node.js 22 or newer and Google Chrome or Microsoft Edge. No package installation is needed.
+Google Chrome or Microsoft Edge is required. The launcher checks for Node.js 22 or newer. If it is missing or too old, it offers to install Node.js LTS through Windows Package Manager: type **Y** to install or **N** to exit. Windows may ask for administrator permission. After a successful installation, the app launches automatically. If Windows Package Manager is unavailable or installation fails, the launcher provides manual installation instructions at https://nodejs.org/. No npm package installation is needed.
 
 Double-click **Launch Mutation Designer.cmd**. It starts the local server if necessary, then opens a dedicated browser app window without tabs or an address bar. You can make a desktop shortcut to this file. The launcher works regardless of the terminal's current folder.
 
@@ -18,12 +18,12 @@ The app window uses its own browser profile at `%LOCALAPPDATA%\MutationDesigner\
 
 ## Share with teammates
 
-Send the application ZIP. Teammates extract it, install Node.js 22 or newer plus Chrome/Edge if needed, and double-click **Launch Mutation Designer.cmd**. Send mutation JSON files separately if they need your definitions. No account or shared server is required.
+Send the application ZIP. Teammates extract it, ensure Chrome/Edge is installed, and double-click **Launch Mutation Designer.cmd**. The launcher can help install Node.js on first launch. Send mutation JSON files separately if they need your definitions. No account or shared server is required.
 
 To produce a clean ZIP from the committed version:
 
 ```powershell
-git archive --format=zip --output=mutation-designer.zip HEAD app server.mjs launch.mjs "Launch Mutation Designer.cmd" package.json README.md docs tests
+git archive --format=zip --output=mutation-designer.zip HEAD app server.mjs launch.mjs bootstrap.ps1 "Launch Mutation Designer.cmd" package.json README.md docs tests
 ```
 
 The ZIP contains the app, not personal browser data. Each teammate gets their own local library.
@@ -76,7 +76,7 @@ Browser data can be cleared or evicted, and private browsing sessions may discar
 npm test
 ```
 
-The Node tests cover launcher arguments, server detection/reuse, port conflicts, startup readiness/timeouts, JSON integrity and validation, all import-conflict decisions, Markdown note exclusion, state rules, independent duplicate identities, reroll invariants, archive filtering, and save-queue ordering/retry behavior.
+The Node tests cover the Node.js installation consent/decline and failure paths with mocked installers, launcher arguments, server detection/reuse, port conflicts, startup readiness/timeouts, JSON integrity and validation, all import-conflict decisions, Markdown note exclusion, state rules, independent duplicate identities, reroll invariants, archive filtering, and save-queue ordering/retry behavior.
 
 Additional Chrome verification covered real IndexedDB persistence across reload, image persistence, preferences, JSON/Markdown downloads, all conflict choices, selected exports, archive/delete/cancel behavior, invalid imports, empty libraries, read-only secondary tabs, mobile layout, simulated quota failure/recovery, and protection of unsupported saved data.
 
