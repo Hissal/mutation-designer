@@ -821,3 +821,23 @@ dialog{color:var(--text);background:var(--panel);border:1px solid var(--line);bo
 .state-grid.layout-stacked .effect { padding-top: 2px; line-height: 1.45; }
 .state-grid.layout-stacked .effect strong { display: inline; margin-right: 5px; }
 .state-grid.layout-stacked .effect + .effect { margin-top: 3px; padding-top: 4px; }
+/* Keep side-by-side artwork in the heading, clear of full-width effect copy. */
+.state-grid.layout-columns .state-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 48px;
+  column-gap: 10px;
+  align-content: start;
+}
+.state-grid.layout-columns .state-label { grid-column: 1; grid-row: 1; }
+.state-grid.layout-columns .state-card h3 { grid-column: 1; grid-row: 2; }
+.state-grid.layout-columns .preview-art {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  float: none;
+  margin: 0;
+  align-self: start;
+  justify-self: end;
+}
+.state-grid.layout-columns .preview-art img { width: 48px; height: 52px; object-fit: contain; }
+.state-grid.layout-columns .effect { grid-column: 1 / -1; }
+.state-grid.layout-columns .state-card::after { display: none; }
