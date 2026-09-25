@@ -2,17 +2,43 @@
 
 A local browser app for designing mutations for a body-horror roguelike FPS. Develop ideas, inspect their three states, compare offers, and share human-readable definitions with teammates.
 
-## Run
+## Launch on Windows
 
-Requires Node.js 22 or newer. There are no dependencies to install.
+Install Node.js 22 or newer and Google Chrome or Microsoft Edge. No package installation is needed.
+
+Double-click **Launch Mutation Designer.cmd**. It starts the local server if necessary, then opens a dedicated browser app window without tabs or an address bar. You can make a desktop shortcut to this file. The launcher works regardless of the terminal's current folder.
+
+The launcher closes after a successful start. A server it starts runs hidden in the background and remains available after the app window closes, until the computer restarts or that server process is stopped. Launching again reuses the running server. If you started the server manually in a terminal, keep that terminal open.
+
+The address stays fixed at **http://127.0.0.1:4174/**. If another application occupies the port, the launcher reports the conflict instead of changing ports and appearing to lose your library.
+
+The app window uses its own browser profile at `%LOCALAPPDATA%\MutationDesigner\browser-profile`. This keeps its library separate from normal browsing and preserves it when the application folder is moved or updated. The launcher remembers its chosen browser in `launcher.json` in the same parent folder. Server output goes to `server.log` there.
+
+**One-time transfer from the existing browser version:** export a full-library JSON backup in your current browser, open the new app window, and import that JSON. The new profile initially has an empty library; your original browser data remains in place.
+
+## Share with teammates
+
+Send the application ZIP. Teammates extract it, install Node.js 22 or newer plus Chrome/Edge if needed, and double-click **Launch Mutation Designer.cmd**. Send mutation JSON files separately if they need your definitions. No account or shared server is required.
+
+To produce a clean ZIP from the committed version:
+
+```powershell
+git archive --format=zip --output=mutation-designer.zip HEAD app server.mjs launch.mjs "Launch Mutation Designer.cmd" package.json README.md docs tests
+```
+
+The ZIP contains the app, not personal browser data. Each teammate gets their own local library.
+
+## Run in a regular browser
 
 ```sh
 npm start
 ```
 
-Open **http://127.0.0.1:4174/**. Stop the server with Ctrl+C. The server binds to this computer only; it does not publish your library or accept uploads over the network.
+Open **http://127.0.0.1:4174/**. Keep the terminal open and press Ctrl+C to stop this manually started server. The server binds only to this computer.
 
-Keep using the same browser profile and URL. Local browser storage is specific to the origin: switching between `localhost` and `127.0.0.1`, or changing the port, opens a separate library. Changing `PORT` is supported when necessary, but export a JSON backup before switching origins.
+Regular browsers use their own profile's storage. Use the same profile and exact URL each time: `localhost`, `127.0.0.1`, and different ports are separate origins. JSON export/import transfers libraries between them. The Windows launcher always uses port 4174, even if `PORT` is configured for manual use.
+
+For launcher diagnostics without opening a window, run `node launch.mjs --check`.
 
 The app starts empty. Create a mutation, import a JSON file, or explicitly load the illustrative sample ideas.
 
@@ -50,7 +76,7 @@ Browser data can be cleared or evicted, and private browsing sessions may discar
 npm test
 ```
 
-The Node tests cover JSON integrity and validation, all import-conflict decisions, Markdown note exclusion, state rules, independent duplicate identities, reroll invariants, archive filtering, and save-queue ordering/retry behavior.
+The Node tests cover launcher arguments, server detection/reuse, port conflicts, startup readiness/timeouts, JSON integrity and validation, all import-conflict decisions, Markdown note exclusion, state rules, independent duplicate identities, reroll invariants, archive filtering, and save-queue ordering/retry behavior.
 
 Additional Chrome verification covered real IndexedDB persistence across reload, image persistence, preferences, JSON/Markdown downloads, all conflict choices, selected exports, archive/delete/cancel behavior, invalid imports, empty libraries, read-only secondary tabs, mobile layout, simulated quota failure/recovery, and protection of unsupported saved data.
 
