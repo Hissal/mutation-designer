@@ -2,11 +2,28 @@
 
 A local browser app for designing mutations for a body-horror roguelike FPS. Develop ideas, inspect their three states, compare offers, and share human-readable definitions with teammates.
 
+## Use on GitHub Pages
+
+The app can be hosted on GitHub Pages. Visitors open the site in their browser without downloading the app or installing Node.js. Definitions and images stay in that browser's local storage; hosting does not introduce shared saving or upload definitions to the repository.
+
+To publish:
+
+1. Push this repository to your chosen GitHub repository, with `main` as the branch.
+2. In the repository's **Settings > Pages**, select **GitHub Actions** as the build and deployment source.
+3. Run **Deploy GitHub Pages** from the Actions tab, or push a change to `main`. The workflow tests the app and publishes only its static assets.
+4. Open the deployment URL shown by GitHub, normally `https://OWNER.github.io/REPOSITORY/`.
+
+The Pages library and local launcher's library are separate. Use JSON export/import to transfer definitions between them. Each teammate also has their own browser library.
+
+For a local copy, clone the repository (GitHub Desktop works too), then double-click `launch-mutation-designer.cmd`. Pull updates to refresh the app files. Saved definitions live outside the repository and are not part of Git commits.
+
+`npm run build:pages` prepares the static site in `pages-site/`. The Node.js server and Windows launcher are needed only for local use.
+
 ## Launch on Windows
 
 Google Chrome or Microsoft Edge is required. The launcher checks for Node.js 22 or newer. If it is missing or too old, it offers to install Node.js LTS through Windows Package Manager: type **Y** to install or **N** to exit. Windows may ask for administrator permission. After a successful installation, the app launches automatically. If Windows Package Manager is unavailable or installation fails, the launcher provides manual installation instructions at https://nodejs.org/. No npm package installation is needed.
 
-Double-click **Launch Mutation Designer.cmd**. It starts the local server if necessary, then opens a dedicated browser app window without tabs or an address bar. You can make a desktop shortcut to this file. The launcher works regardless of the terminal's current folder.
+Double-click **launch-mutation-designer.cmd**. It starts the local server if necessary, then opens a dedicated browser app window without tabs or an address bar. You can make a desktop shortcut to this file. The launcher works regardless of the terminal's current folder.
 
 The launcher closes after a successful start. A server it starts runs hidden in the background and remains available after the app window closes, until the computer restarts or that server process is stopped. Launching again reuses the running server. If you started the server manually in a terminal, keep that terminal open.
 
@@ -18,12 +35,12 @@ The app window uses its own browser profile at `%LOCALAPPDATA%\MutationDesigner\
 
 ## Share with teammates
 
-Send the application ZIP. Teammates extract it, ensure Chrome/Edge is installed, and double-click **Launch Mutation Designer.cmd**. The launcher can help install Node.js on first launch. Send mutation JSON files separately if they need your definitions. No account or shared server is required.
+Send the application ZIP. Teammates extract it, ensure Chrome/Edge is installed, and double-click **launch-mutation-designer.cmd**. The launcher can help install Node.js on first launch. Send mutation JSON files separately if they need your definitions. No account or shared server is required.
 
 To produce a clean ZIP from the committed version:
 
 ```powershell
-git archive --format=zip --output=mutation-designer.zip HEAD app server.mjs launch.mjs bootstrap.ps1 "Launch Mutation Designer.cmd" package.json README.md docs tests
+git archive --format=zip --output=mutation-designer.zip HEAD app server.mjs launch.mjs bootstrap.ps1 launch-mutation-designer.cmd build-pages.mjs package.json README.md docs tests
 ```
 
 The ZIP contains the app, not personal browser data. Each teammate gets their own local library.

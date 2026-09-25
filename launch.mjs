@@ -23,7 +23,7 @@ export async function serverStatus(url=APP_URL){
     if(!response.ok)return 'occupied';
     // Recognize the actual app document, including an already running pre-launcher server.
     const html=await response.text();
-    return html.includes('<title>Mutation Designer</title>') && html.includes('src="/app/controller.js"') && html.includes('href="/app/style.css"')?'ready':'occupied';
+    return html.includes('<title>Mutation Designer</title>') && (/src="\.?\/app\/controller\.js"/).test(html) && (/href="\.?\/app\/style\.css"/).test(html)?'ready':'occupied';
   }catch(error){
     if(error.cause?.code==='ECONNREFUSED')return 'absent';
     return 'occupied';

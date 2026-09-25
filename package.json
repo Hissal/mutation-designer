@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "build:pages": "node build-pages.mjs",
     "start": "node server.mjs",
     "test": "node --test tests/*.test.js",
     "launch": "node launch.mjs"
