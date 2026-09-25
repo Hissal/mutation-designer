@@ -1,6 +1,6 @@
 # Mutation Designer
 
-A local browser app for designing mutations for a body-horror roguelike FPS. Develop ideas, inspect their three states, compare offers, and hand definitions to teammates or an LLM.
+A local browser app for designing mutations for a body-horror roguelike FPS. Develop ideas, inspect their three states, compare offers, and share human-readable definitions with teammates.
 
 ## Run
 
@@ -36,7 +36,7 @@ Only one tab can edit this library at a time. Additional tabs open read-only to 
 Use **Export / backup**, the editor's **Export**, or library checkboxes and **Export selected**:
 
 - **JSON** preserves IDs, timestamps, complete definitions, anatomy icon choice, visual source, notes, and embedded images. Full-library export includes archived definitions. This is the importable backup format.
-- **Markdown** provides readable definitions, effects, and state rules for humans and LLMs. Images are omitted. Design notes can be included or excluded.
+- **Markdown** provides human-readable definitions and effects. Shared state rules are not repeated in each definition. Images are omitted. Design notes can be included or excluded.
 
 Import JSON to review new, unchanged, and conflicting definitions before applying anything. For each changed existing ID, compare both versions and choose **keep yours**, **replace yours**, or **import as a separate copy**. Invalid files leave the current library unchanged. The supported envelope is `format: "mutation-designer"`, `schemaVersion: 1`, and a `mutations` array; use an exported file as the complete schema example.
 

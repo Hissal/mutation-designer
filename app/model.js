@@ -8,7 +8,7 @@ export function createMutation(overrides={}){
   const now=new Date().toISOString();
   return {id:crypto.randomUUID(),name:'',kind:'bones',visual:'icon',workflow:'Idea',tags:[],body:'',positiveTitle:'',positive:'',negativeTitle:'',negative:'',notes:'',image:'',...overrides,createdAt:now,updatedAt:now};
 }
-export function duplicate(m){return createMutation({...m,id:crypto.randomUUID(),name:`${title(m)} — alternative`,tags:[...m.tags],workflow:'Idea'});}
+export function duplicate(m){return createMutation({...m,id:crypto.randomUUID(),name:`${title(m)} (alternative)`,tags:[...m.tags],workflow:'Idea'});}
 export function applicableEffects(m,state){return [state!=='Corrupt'?{polarity:'positive',title:m.positiveTitle,text:m.positive}:null,state!=='Stable'?{polarity:'negative',title:m.negativeTitle,text:m.negative}:null].filter(Boolean);}
 export function filterMutations(mutations,{search='',tag='',workflow='active'}={}){
   return mutations.filter(m=>(!search || [m.name,m.body,m.positiveTitle,m.positive,m.negativeTitle,m.negative,m.notes,...m.tags].join(' ').toLowerCase().includes(search.toLowerCase())) && (!tag || m.tags.some(t=>t.toLowerCase().includes(tag.toLowerCase()))) && (workflow==='all' || (workflow==='active'?m.workflow!=='Archived':m.workflow===workflow)));
@@ -53,7 +53,7 @@ export function resolveImport(existing,plan,decisions){
     if(!['keep','replace','copy'].includes(decision))throw new Error('Choose how to handle every conflicting mutation.');
     if(decision==='keep')continue;
     if(decision==='replace'){const index=result.findIndex(m=>m.id===row.incoming.id);result[index]={...row.incoming,tags:[...row.incoming.tags]};}
-    if(decision==='copy')result.push(createMutation({...row.incoming,id:crypto.randomUUID(),name:`${title(row.incoming)} — imported copy`,tags:[...row.incoming.tags]}));
+    if(decision==='copy')result.push(createMutation({...row.incoming,id:crypto.randomUUID(),name:`${title(row.incoming)} (imported copy)`,tags:[...row.incoming.tags]}));
   }
   return validateCollection(result);
 }
@@ -61,7 +61,7 @@ const md=text=>String(text).replace(/[\\`*_{}\[\]<>#|]/g,'\\$&');
 export function markdownExport(mutations,{includeNotes=true}={}){
   const sections=mutations.map(m=>{
     const effect=key=>`${m[key+'Title']?`**${md(m[key+'Title'])}**\n\n`:''}${m[key]?md(m[key]):'_Not written yet._'}`;
-    return `## ${md(title(m))}\n\n**Workflow:** ${m.workflow}  \n**Body icon:** ${ICON_NAMES[m.kind]}  \n**Tags:** ${m.tags.length?m.tags.map(md).join(', '):'None'}\n\n### Bodily change\n\n${m.body?md(m.body):'_Not written yet._'}\n\n### Positive effect\n\n${effect('positive')}\n\n### Negative effect\n\n${effect('negative')}\n\n### States\n\n| State | Applicable effects |\n| --- | --- |\n| Stable | Positive only |\n| Unstable | Positive and negative |\n| Corrupt | Negative only |${includeNotes?`\n\n### Design notes\n\n${m.notes?md(m.notes):'_None._'}`:''}`;
+    return `## ${md(title(m))}\n\n**Workflow:** ${m.workflow}  \n**Body icon:** ${ICON_NAMES[m.kind]}  \n**Tags:** ${m.tags.length?m.tags.map(md).join(', '):'None'}\n\n### Bodily change\n\n${m.body?md(m.body):'_Not written yet._'}\n\n### Positive effect\n\n${effect('positive')}\n\n### Negative effect\n\n${effect('negative')}${includeNotes?`\n\n### Design notes\n\n${m.notes?md(m.notes):'_None._'}`:''}`;
   });
   return `# Mutation definitions\n\nDesign handoff for review and implementation planning. These are ideas, not runtime-ready game data.\n\n${sections.join('\n\n---\n\n')}\n`;
 }

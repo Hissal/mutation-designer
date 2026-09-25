@@ -30,10 +30,13 @@ Three slots with mutation and state selection. Locks preserve both identity and 
 
 Save definitions, images and layout preferences locally, with explicit saved/error feedback. No shared storage or revision history. Archive is the routine reversible removal action; permanent deletion requires confirmation.
 
-Markdown exports target teammates and LLM implementation-planning handoffs: current definition or selected group, body, effects, state breakdown and optional design notes, without images. JSON exports preserve complete editable definitions and embedded images; full-library backup includes archived records. Stable IDs identify matches. Conflicting imports show both versions and require keep, replace or separate-copy choices. Never silently overwrite changes.
+Markdown is framed as a human-readable format: current definition or selected group, body, effects and optional design notes, without images. Omit the repeated states table because every mutation uses the same rules. JSON exports preserve complete editable definitions and embedded images; full-library backup includes archived records. Stable IDs identify matches. Conflicting imports show both versions and require keep, replace or separate-copy choices. Never silently overwrite changes.
 
 The implementation adds a single-editor browser lock to prevent competing tabs overwriting the local library. Secondary tabs remain useful for reading and exporting their loaded snapshot. New installations start empty; illustrative examples are explicitly opt-in.
 
 ## Validation
 
 11 automated Node tests exercise data integrity, imports and their conflict decisions, Markdown exports, states, copies, rerolls and save ordering/failure recovery. Chrome interaction checks verify the real storage and file workflows, state/presentation controls, multi-tab behavior, deletion, invalid imports, persistence, mobile layouts, storage errors/retry, and safe handling of unsupported saved data.
+
+
+Stacked state previews use compact rows with smaller icons and inline effect titles, matching the density of stacked comparison offers. Application-owned visible copy uses no em dashes. User-authored definitions are preserved verbatim.
